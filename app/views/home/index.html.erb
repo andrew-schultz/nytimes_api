@@ -1,0 +1,31 @@
+<div id="page">
+	<h1>Better Know Your Government</h1>
+	<%= form_tag "/search", method: "get" do %>
+		<%= label_tag(:query, 'Enter your states 2 letter abbreviation') %>
+		<%= text_field_tag :query %>
+		<%= submit_tag "submit" %>
+	<% end %>
+
+	<% if @results %>
+		<h2>Your Senators</h2>
+
+		<% @results.each do |r| %>
+			<div class="ind">
+				<p class="subtitle"><%= r["first_name"] %> <%= r["middle_name"] %> <%= r["last_name"] %> <span class ="party"><%= r["party"] %></span></p>
+				<div class="info">
+					<h3>Info</h3>
+					<p>Seniority: <%= r["seniority"] %></p>
+					<p>Next Election: <%= r["next_election"] %></p>
+					<br>
+				</div>
+				<div class="votes">
+					<h3>Vote History</h3>
+					<p>Total Votes: <%= r["total_votes"] %></p>
+					<p>Missed Votes: <%= r["missed_votes"] %> - <%= r["missed_votes_pct"] %>%</p>
+					<p>Votes with Party: <%= r["votes_with_party_pct"] %>%</p>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+</div>
+
